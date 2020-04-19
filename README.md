@@ -9,7 +9,7 @@ Database : MongoDb
 
 Mongo Port : 27071
 
-TomcatServer Port : 4646
+TomcatServer Port : 4647
 
 Github link for cloning:https://github.com/shrey46/omnicuris_ecom.git
 
@@ -51,10 +51,10 @@ DELETE api's :
 
 PUT api's :
 
-
 /updateProduct/{id} : Updating product in the stock by its id
 
 
+POSTMAN COLLECTION LINK : https://www.getpostman.com/collections/72eabb194cc5d36a4e19
 
 
 NOTE : 
@@ -63,5 +63,7 @@ NOTE :
 3. Time is saved in millisecond time format i.e. System.currentTimeMillis() in mongoDb
 4. In any of the search where id is used for searching give complete id from mongoDb
 5. Order can be placed with userEmail and product Id
-6. Validations are added for checking unique emails accordingly
+6. Validations are added for checking unique emails accordingly (if email is not valid or already exist repestive message will be displayed )
+7. Postman collection is added with example for reference
+8. Date of creation of user,order,product will never change.
 
