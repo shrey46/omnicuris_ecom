@@ -52,9 +52,10 @@ public class EcomController {
 
 
     //ADD USERS FOR ORDERING
-    @PostMapping("/addUser")
-    public EcomApplicationResponse saveUser(@RequestBody EcomUserDto ecomUserDto) {
-        ecomService.userValidations(ecomUserDto);
+    @PostMapping("/addUsers")
+    public EcomApplicationResponse saveUser(@RequestBody List<EcomUserDto> ecomUserDtos) {
+        for(EcomUserDto ecomUserDto:ecomUserDtos)
+            ecomService.userValidations(ecomUserDto);
         return EcomApplicationResponse.success(EcomPromptMessage.USER_ADDED_SUCCESSFULLY);
     }
 
@@ -120,13 +121,23 @@ public class EcomController {
 
     //single product
     @PostMapping("/addOrder")
-    public EcomApplicationResponse saveOrders(@RequestBody EcomOrderDto ecomOrderDto) {
+    public EcomApplicationResponse saveOrder(@RequestBody EcomOrderDto ecomOrderDto) {
         if (ecomService.validateOrderDto(ecomOrderDto))
             ecomService.placeOrders(ecomOrderDto);
         else
             throw new GenericException(EcomPromptMessage.ORDER_UNSUCCESSFULL);
         return EcomApplicationResponse.success(EcomPromptMessage.ORDER_PLACED_SUCCESSFULLY);
     }
+
+    @PostMapping("/addOrders")
+    public EcomApplicationResponse saveOrders(@RequestBody List<EcomOrderDto> ecomOrdersDto) {
+        for(EcomOrderDto ecomOrderDto:ecomOrdersDto){
+        if (ecomService.validateOrderDto(ecomOrderDto))
+            ecomService.placeOrders(ecomOrderDto);
+        }
+        return EcomApplicationResponse.success(EcomPromptMessage.ORDER_PLACED_SUCCESSFULLY);
+    }
+
 
     //SEARCH ORDERS OF A USER WITH EMAIL OR USER-ID
     @GetMapping("/findOrders/{search}")
