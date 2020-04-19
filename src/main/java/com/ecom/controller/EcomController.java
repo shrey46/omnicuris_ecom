@@ -51,7 +51,7 @@ public class EcomController {
     private EcomService ecomService;
 
 
-    //ADD USERS FOR ORDERING
+    //adding single/multiple users
     @PostMapping("/addUsers")
     public EcomApplicationResponse saveUser(@RequestBody List<EcomUserDto> ecomUserDtos) {
         for(EcomUserDto ecomUserDto:ecomUserDtos)
@@ -59,8 +59,7 @@ public class EcomController {
         return EcomApplicationResponse.success(EcomPromptMessage.USER_ADDED_SUCCESSFULLY);
     }
 
-
-    //SELLER api's
+    //Adding single product to stock
     @PostMapping("/addProduct")
     public EcomApplicationResponse saveProduct(@RequestBody EcomStockModel ecomModel) {
 
@@ -72,6 +71,8 @@ public class EcomController {
         return EcomApplicationResponse.success(EcomPromptMessage.PRODUCT_ADDED_SUCCESSFULLY
                 + EcomPromptMessage.WITH_ID + ecomModel.getId() + EcomPromptMessage.AT_DELIMITER + date);
     }
+
+    //Saving multiple products to stock
     @PostMapping("/addProducts")
     public EcomApplicationResponse saveProduct(@RequestBody List<EcomStockModel> ecomModels) {
         for(EcomStockModel ecomModel:ecomModels)
@@ -84,19 +85,22 @@ public class EcomController {
         }
         return EcomApplicationResponse.success(EcomPromptMessage.PRODUCT_ADDED_SUCCESSFULLY);
     }
+
+    //Fetching all product in the cart
     @GetMapping("/findAllProducts")
     public EcomApplicationResponse getAllProducts() {
 
         return EcomApplicationResponse.success(repository.findAll());
     }
 
-
+    //Searching product's with id(give complete), productBrand,productCategory, productSubCategory using regex
     @GetMapping("/findProduct/{search}")
     public EcomApplicationResponse getProduct(@PathVariable String search) {
 
         return EcomApplicationResponse.success(ecomService.searchProducts(search));
     }
 
+    //Deleting product in the stock by its id
     @DeleteMapping("/deleteProduct/{id}")
     public EcomApplicationResponse deleteProduct(@PathVariable String id) {
         EcomStockModel user = repository.findById(id)
@@ -108,6 +112,7 @@ public class EcomController {
 
     }
 
+    //Updating product in the stock by its id
     @PutMapping("/updateProduct/{id}")
     public EcomApplicationResponse updateProduct(@PathVariable("id") String id, @Valid @RequestBody EcomStockDto stockDto) {
 
@@ -116,10 +121,7 @@ public class EcomController {
                 + EcomPromptMessage.WITH_ID + id);
     }
 
-
-    //order api
-
-    //single product
+    //Saving single order
     @PostMapping("/addOrder")
     public EcomApplicationResponse saveOrder(@RequestBody EcomOrderDto ecomOrderDto) {
         if (ecomService.validateOrderDto(ecomOrderDto))
@@ -129,6 +131,7 @@ public class EcomController {
         return EcomApplicationResponse.success(EcomPromptMessage.ORDER_PLACED_SUCCESSFULLY);
     }
 
+    //Saving bulk orders
     @PostMapping("/addOrders")
     public EcomApplicationResponse saveOrders(@RequestBody List<EcomOrderDto> ecomOrdersDto) {
         for(EcomOrderDto ecomOrderDto:ecomOrdersDto){
