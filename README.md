@@ -26,22 +26,31 @@ ROOT : /omnicom
 POST api's : 
 
 /addUsers : adding single/multiple users
+
 /addProduct : Adding single product to stock
+
 /addProducts : Saving multiple products to stock
+
 /addOrder : Saving single order
+
 /addOrders : Saving bulk orders
 
 GET api's :
 
 /findAllProducts : Fetching all product in the cart
+
 /findProduct/{search} : Searching product's with id(give complete), productBrand,productCategory, productSubCategory using regex
+
 /findOrders/{search} : SEARCH ORDERS OF A USER WITH EMAIL OR USER-ID
+
 /findAllorders : search all orders made by all users
 
 DELETE api's :
+
 /deleteProduct/{id} : Deleting product in the stock by its id
 
 PUT api's :
+
 
 /updateProduct/{id} : Updating product in the stock by its id
 
