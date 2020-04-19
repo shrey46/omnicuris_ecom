@@ -148,12 +148,12 @@ public class EcomServiceImpl implements EcomService {
                 .productQuantity(ecomOrderDto.getProductQuantity())
                 .productPrice(stock.getProductPrice())
                 .build();
-//        ecomOrderModel.setProductDetails(productDetails);
+
         LOGGER.info(EcomPromptMessage.ORDER_PLACED_SUCCESSFULLY);
         EcomOrderModel ecomOrderModel = EcomOrderModel.builder()
                 .userDetails(userDetails).userEmail(ecomOrderDto.getUserEmail())
                 .productDetails(productDetails).productId(ecomOrderDto.getProductId())
-                .orderedAt(time).deliverBy(time)
+                .orderedAt(time).deliverBy(time+7*24*60*60*1000)
                 .orderTotal(ecomOrderDto.getProductQuantity() * stock.getProductPrice())
                 .paymentMode(ecomOrderDto.getPaymentMode().toUpperCase()).build();
         orderRepository.save(ecomOrderModel);

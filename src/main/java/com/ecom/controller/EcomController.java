@@ -153,5 +153,4 @@ public class EcomController {
     public EcomApplicationResponse getAllOrders() {
         return EcomApplicationResponse.success(orderRepository.findAll());
     }
-
 }
